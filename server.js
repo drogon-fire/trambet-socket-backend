@@ -15,19 +15,27 @@ const io = new Server(server, {
 });
 
 // ! Server connection and get Access token
-const getAccessToken  = async() => {
-   const url = `http://live.goalserve.com/api/v1/auth/gettoken`;
-    try {
-      const response = await axios.post(url, {
-        apiKey: "89b86665dc8348f5605008dc3da97a57",
-      });
-      console.log("token", response);
-      return response;
-    } catch (err) {
-      console.error("Fetch error", err);
-      return [];
-    }
-}
+const getAccessToken = async () => {
+  const url = `http://live.goalserve.com/api/v1/auth/gettoken`;
+  try {
+    const response = await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          apiKey: "89b86665dc8348f5605008dc3da97a57",
+        },
+      }
+    );
+    console.log("token", response.data);
+    return response.data;
+  } catch (err) {
+    console.error("Fetch error", err.response?.status, err.response?.data);
+    return [];
+  }
+};
+
 
 
 
