@@ -14,6 +14,23 @@ const io = new Server(server, {
   maxHttpBufferSize: 1e8,
 });
 
+// ! Server connection and get Access token
+const getAccessToken  = async() => {
+   const url = `http://live.goalserve.com/api/v1/auth/gettoken`;
+    try {
+      const response = await axios.post(url, {
+        apiKey: "89b86665dc8348f5605008dc3da97a57",
+      });
+      console.log("token", response);
+      return response;
+    } catch (err) {
+      console.error("Fetch error", err);
+      return [];
+    }
+}
+
+
+
 const getRandomGames = async (category) => {
   const url = `https://images-api.nasa.gov/search?q=${category}`;
 
@@ -44,6 +61,9 @@ io.on("connection", (socket) => {
 
   // Start with cricket
   startCategoryUpdates("cricket");
+
+  // Get Access token
+  getAccessToken();
 
   // Client can select category
   socket.on("select-category", (category) => {
