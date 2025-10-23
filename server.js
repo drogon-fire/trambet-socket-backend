@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
     interval = setInterval(async () => {
       const data = await getRandomGames(category);
       socket.emit("category-data", data);
-    }, 10000); // every 3s new API data
+    }, 2000); // every 3s new API data
   };
 
   // Start with cricket
