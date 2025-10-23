@@ -20,7 +20,7 @@ const getAccessToken = async () => {
   try {
     const response = await axios.post(
       url,
-      {},
+      { apiKey: "89b86665dc8348f5605008dc3da97a57" },
       {
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const getAccessToken = async () => {
     console.log("token", response.data);
     return response.data;
   } catch (err) {
-    console.error("Fetch error", err.response?.status, err.response?.data);
+    console.error("Fetch error", err.response?.status, err.response?.data, err);
     return [];
   }
 };
