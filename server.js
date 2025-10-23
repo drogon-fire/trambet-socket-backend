@@ -15,7 +15,7 @@ const io = new Server(server, {
 });
 
 const getRandomGames = async (category) => {
-  const url = `https://images-api.nasa.gov/search?q=sun`;
+  const url = `https://images-api.nasa.gov/search?q=${category}`;
 
   try {
     const response = await axios.get(url);
