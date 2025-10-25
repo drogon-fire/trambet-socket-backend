@@ -30,7 +30,7 @@ const getAccessToken = async () => {
       }
     );
 
-    console.log("Access token:", response.data);
+    console.log("Access token:", response);
     return response.data;
   } catch (err) {
     console.log(
