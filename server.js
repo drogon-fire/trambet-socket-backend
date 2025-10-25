@@ -16,25 +16,32 @@ const io = new Server(server, {
 
 // ! Server connection and get Access token
 const getAccessToken = async () => {
-  const url = `http://live.goalserve.com/api/v1/auth/gettoken`;
+  const url = "https://live.goalserve.com/api/v1/auth/gettoken"; // prefer https
+  const apiKey = "89b86665dc8348f5605008dc3da97a57";
+
   try {
-    const response = await axios.get(
+    const response = await axios.post(
       url,
-      // { apiKey: "89b86665dc8348f5605008dc3da97a57" },
+      { apiKey }, // send as JSON body
       {
         headers: {
           "Content-Type": "application/json",
-          apiKey: "89b86665dc8348f5605008dc3da97a57",
         },
       }
     );
-    console.log("token", response.data);
+
+    console.log("Access token:", response.data);
     return response.data;
   } catch (err) {
-    console.error("Fetch error", err.response?.status, err.response?.data, err);
-    return [];
+    console.error(
+      "❌ Fetch error:",
+      err.response?.status || err.code,
+      err.response?.data || err.message
+    );
+    return null;
   }
 };
+
 
 
 
