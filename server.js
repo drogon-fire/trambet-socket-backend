@@ -16,31 +16,25 @@ const io = new Server(server, {
 
 // ! Server connection and get Access token
 const getAccessToken = async () => {
-  const url = "https://live.goalserve.com/api/v1/auth/gettoken"; // prefer https
-  const apiKey = "89b86665dc8348f5605008dc3da97a57";
-
+  const url = `http://live.goalserve.com/api/v1/auth/gettoken`;
   try {
     const response = await axios.post(
       url,
-      { apiKey }, // send as JSON body
+      { apiKey: "89b86665dc8348f5605008dc3da97a57" },
       {
         headers: {
           "Content-Type": "application/json",
-          apiKey,
+          apiKey: "89b86665dc8348f5605008dc3da97a57",
         },
       }
     );
-
-    console.log("Access token:", response);
+    console.log("token", response.data);
     return response.data;
   } catch (err) {
-    console.log(
-      "Fetch error:",err
-    );
-    return null;
+    console.error("Fetch error", err.response?.status, err.response?.data, err);
+    return [];
   }
 };
-
 
 
 
@@ -57,12 +51,8 @@ const getRandomGames = async (category) => {
   }
 };
 
-
-  
-
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
-
 
   let currentCategory = "cricket"; // default
   let interval = null;
@@ -73,14 +63,15 @@ io.on("connection", (socket) => {
 
     interval = setInterval(async () => {
       const data = await getRandomGames(category);
-      // Get Access token
-      await getAccessToken();
       socket.emit("category-data", data);
     }, 2000); // every 3s new API data
   };
 
   // Start with cricket
   startCategoryUpdates("cricket");
+
+  // Get Access token
+  getAccessToken();
 
   // Client can select category
   socket.on("select-category", (category) => {
