@@ -61,6 +61,9 @@ const getRandomGames = async (category) => {
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
+  // Get Access token
+  getAccessToken();
+
   let currentCategory = "cricket"; // default
   let interval = null;
 
@@ -76,9 +79,6 @@ io.on("connection", (socket) => {
 
   // Start with cricket
   startCategoryUpdates("cricket");
-
-  // Get Access token
-  getAccessToken();
 
   // Client can select category
   socket.on("select-category", (category) => {
