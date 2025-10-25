@@ -18,9 +18,9 @@ const io = new Server(server, {
 const getAccessToken = async () => {
   const url = `http://live.goalserve.com/api/v1/auth/gettoken`;
   try {
-    const response = await axios.post(
+    const response = await axios.get(
       url,
-      { apiKey: "89b86665dc8348f5605008dc3da97a57" },
+      // { apiKey: "89b86665dc8348f5605008dc3da97a57" },
       {
         headers: {
           "Content-Type": "application/json",
