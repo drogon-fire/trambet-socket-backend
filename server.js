@@ -35,9 +35,7 @@ const getAccessToken = async () => {
     return response.data;
   } catch (err) {
     console.log(
-      "❌ Fetch error:",
-      err.response?.status || err.code,
-      err.response?.data || err.message, err
+      "Fetch error:",err
     );
     return null;
   }
