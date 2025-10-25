@@ -36,7 +36,7 @@ const getAccessToken = async () => {
     console.log(
       "❌ Fetch error:",
       err.response?.status || err.code,
-      err.response?.data || err.message
+      err.response?.data || err.message, err
     );
     return null;
   }
@@ -57,6 +57,10 @@ const getRandomGames = async (category) => {
     return [];
   }
 };
+
+
+    // Get Access token
+    getAccessToken();
 
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
@@ -82,8 +86,6 @@ io.on("connection", (socket) => {
   socket.on("select-category", (category) => {
     console.log(`Category selected: ${category}`);
     startCategoryUpdates(category);
-    // Get Access token
-    getAccessToken();
   });
 
   socket.on("disconnect", () => {
