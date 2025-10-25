@@ -26,6 +26,7 @@ const getAccessToken = async () => {
       {
         headers: {
           "Content-Type": "application/json",
+          apiKey,
         },
       }
     );
@@ -59,8 +60,7 @@ const getRandomGames = async (category) => {
 };
 
 
-    // Get Access token
-    getAccessToken();
+  
 
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
@@ -75,6 +75,8 @@ io.on("connection", (socket) => {
 
     interval = setInterval(async () => {
       const data = await getRandomGames(category);
+      // Get Access token
+      await getAccessToken();
       socket.emit("category-data", data);
     }, 2000); // every 3s new API data
   };
