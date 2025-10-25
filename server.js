@@ -33,7 +33,7 @@ const getAccessToken = async () => {
     console.log("Access token:", response.data);
     return response.data;
   } catch (err) {
-    console.error(
+    console.log(
       "❌ Fetch error:",
       err.response?.status || err.code,
       err.response?.data || err.message
